@@ -1,0 +1,95 @@
+{
+  "name": "claude-gov-doc-format",
+  "description": "GB/T 9704-2012 党政机关公文格式审核工具 - 提供公文格式检查和排版指南生成功能",
+  "version": "1.0.0",
+  "author": "公文格式技能",
+  "commands": [
+    {
+      "name": "format-check",
+      "description": "审核公文格式规范性，包括发文字号、层级结构、字体字号、日期格式等",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "text": {
+            "type": "string",
+            "description": "待审核的公文文本内容（纯文本或Markdown格式）"
+          },
+          "docType": {
+            "type": "string",
+            "enum": ["general", "letter", "command", "notice", "report", "opinion"],
+            "description": "公文类型（可选，用于特定格式审核）"
+          }
+        },
+        "required": ["text"]
+      }
+    },
+    {
+      "name": "layout-gen",
+      "description": "根据公文类型生成排版指南，包括页面设置、字体规范、行距等参数",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "docType": {
+            "type": "string",
+            "enum": ["general", "letter", "command", "notice", "report", "opinion"],
+            "description": "公文类型：通用格式(general)、信函(letter)、命令(command)、通知(notice)、报告(report)、意见(opinion)"
+          }
+        },
+        "required": ["docType"]
+      }
+    },
+    {
+      "name": "font-check",
+      "description": "专门检测公文中的字体字号规范",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "text": {
+            "type": "string",
+            "description": "待检测的公文文本内容"
+          }
+        },
+        "required": ["text"]
+      }
+    },
+    {
+      "name": "hierarchy-check",
+      "description": "检测公文正文层级标题结构（一、→（一）→1.→（1））",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "text": {
+            "type": "string",
+            "description": "待检测的公文正文内容"
+          }
+        },
+        "required": ["text"]
+      }
+    },
+    {
+      "name": "format-fix",
+      "description": "自动修正公文格式问题，包括发文字号括号、日期格式、层级序号等，并输出修正后的公文和修改记录",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "text": {
+            "type": "string",
+            "description": "待修正的公文文本内容"
+          },
+          "docType": {
+            "type": "string",
+            "enum": ["general", "letter", "command", "notice", "report", "opinion"],
+            "description": "公文类型（可选）"
+          },
+          "dryRun": {
+            "type": "boolean",
+            "description": "预览模式：仅显示修改建议，不实际修改文本"
+          }
+        },
+        "required": ["text"]
+      }
+    }
+  ],
+  "tags": ["公文", "格式审核", "GB/T 9704-2012", "党政机关"],
+  "standard": "GB/T 9704-2012"
+}
